@@ -17,9 +17,7 @@ public class ExamplesConfig implements ServerApplicationConfig {
 		System.out.println("here");
 
 		if (scanned.contains(EchoEndpoint.class)) {
-			result.add(ServerEndpointConfig.Builder.create(
-					EchoEndpoint.class,
-					"/echo").build());
+			result.add(ServerEndpointConfig.Builder.create(EchoEndpoint.class, "/echo").build());
 		}
 
 		return result;
