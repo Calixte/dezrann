@@ -4,6 +4,7 @@ import bzh.dezrann.Forwards;
 import bzh.dezrann.Message;
 import bzh.dezrann.Sessions;
 import bzh.dezrann.config.Config;
+import com.google.inject.internal.util.$SourceProvider;
 
 import javax.websocket.Endpoint;
 import javax.websocket.EndpointConfig;
@@ -27,7 +28,7 @@ public class WatchEndpoint extends Endpoint {
 			public void onMessage(String message) {
 				if(sessions.containsKey(message)){
 					Session clientSession = sessions.get(message);
-					forwards.put(clientSession, session);
+					forwards.put(clientSession.getId(), session);
 				}
 			}
 		});

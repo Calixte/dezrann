@@ -22,8 +22,9 @@ public class ListenEndpoint extends Endpoint {
 		session.addMessageHandler(new MessageHandler.Whole<String>() {
 			@Override
 			public void onMessage(String message) {
-				if(forwards.containsKey(session)){
-					Session watcher = forwards.get(session);
+				if(forwards.containsKey(session.getId())){
+					Session watcher = forwards.get(session.getId());
+					System.out.println("Forwarding to " + watcher);
 					watcher.getAsyncRemote().sendText(message);
 				}
 			}

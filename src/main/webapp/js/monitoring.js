@@ -1,4 +1,6 @@
-var consoleDiv = document.getElementById('console');
+window.onload = function() {
+	consoleDiv = document.getElementById('console');
+}
 function checkConfig(config) {
 	if (config == undefined) {
 		config = {}
@@ -25,6 +27,7 @@ function watcherInit(id, c) {
 		ws.send(id);
 	};
 	ws.onmessage = function (messageEvent) {
-		consoleDiv.textContent += '<br>' + messageEvent.data;
+		console.log(messageEvent)
+		consoleDiv.innerHTML += '<br>' + messageEvent.data;
 	}
 }
