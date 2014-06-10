@@ -18,7 +18,7 @@ public class ListenEndpoint extends Endpoint {
 	@Override
 	public void onOpen(Session session, EndpointConfig endpointConfig) {
 		session.addMessageHandler((MessageHandler.Whole<String>) message -> {
-			if(forwards.containsKey(session)){
+			if (forwards.containsKey(session)) {
 				Session watcher = forwards.get(session);
 				watcher.getAsyncRemote().sendText(message);
 			}
