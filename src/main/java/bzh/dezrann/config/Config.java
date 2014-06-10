@@ -1,8 +1,9 @@
 package bzh.dezrann.config;
 
 import bzh.dezrann.servlet.WatchServlet;
-import bzh.dezrann.websocket.EchoEndpoint;
+import bzh.dezrann.websocket.ListenEndpoint;
 import bzh.dezrann.servlet.MainServlet;
+import bzh.dezrann.websocket.WatchEndpoint;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
@@ -35,8 +36,9 @@ public class Config extends GuiceServletContextListener implements ServerApplica
 
 		Set<ServerEndpointConfig> result = new HashSet<>();
 
-		if (scanned.contains(EchoEndpoint.class)) {
-			result.add(ServerEndpointConfig.Builder.create(EchoEndpoint.class, "/echo").build());
+		if (scanned.contains(ListenEndpoint.class)) {
+			result.add(ServerEndpointConfig.Builder.create(ListenEndpoint.class, "/listen").build());
+			result.add(ServerEndpointConfig.Builder.create(WatchEndpoint.class, "/watch").build());
 		}
 
 		return result;

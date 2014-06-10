@@ -8,7 +8,7 @@
 	<script>watcherInit(${session.id}, {path: 'watch'})</script>
 </head>
 <body>
-<h1>You are monitoring ${session.id}</h1>
+<h1>You are monitoring session ${session.id}</h1>
 <div id="console">
 
 </div>
