@@ -23,6 +23,7 @@ public class WatchEndpoint extends Endpoint {
 
 	@Override
 	public void onOpen(Session session, EndpointConfig config) {
+		System.out.println("Watcher connection opened (session № " + session.getId() + ")");
 		session.addMessageHandler(new MessageHandler.Whole<String>() {
 			@Override
 			public void onMessage(String message) {
@@ -33,4 +34,10 @@ public class WatchEndpoint extends Endpoint {
 			}
 		});
 	}
+
+	@Override
+	public void onClose(Session session, CloseReason closeReason) {
+		System.out.println("Watcher connection closed (session № " + session.getId() + ")");
+	}
+
 }

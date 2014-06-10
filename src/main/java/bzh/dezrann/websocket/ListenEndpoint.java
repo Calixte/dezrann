@@ -18,6 +18,7 @@ public class ListenEndpoint extends Endpoint {
 
 	@Override
 	public void onOpen(Session session, EndpointConfig endpointConfig) {
+		System.out.println("User connection opened (session № " + session.getId() + ")");
 		session.getAsyncRemote().sendText(Message.DEMAT.getMessage());
 		session.addMessageHandler(new MessageHandler.Whole<String>() {
 			@Override
@@ -34,5 +35,6 @@ public class ListenEndpoint extends Endpoint {
 	@Override
 	public void onClose(Session session, CloseReason closeReason) {
 		sessions.remove(session.getId());
+		System.out.println("User connection closed (session № " + session.getId() + ")");
 	}
 }
