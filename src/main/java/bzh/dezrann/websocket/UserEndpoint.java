@@ -25,13 +25,12 @@ public class UserEndpoint extends Endpoint {
 
 	@Override
 	public void onOpen(Session session, EndpointConfig endpointConfig) {
-		System.out.println("User connection opened (session № " + session.getId() + ")");
-		session.getAsyncRemote().sendText(Message.DEMAT.getMessage());
+		System.out.println("User connection opened (session № " + session.getId() + "\t" + session + ")");
 		session.addMessageHandler(new Whole<String>() {
 			@Override
 			public void onMessage(String message) {
-				if(forwards.containsUserId(session.getId())){
-					Set<Session> watchers = forwards.getWatchers(session.getId());
+				if(forwards.containsUser(session)){
+					Set<Session> watchers = forwards.getWatchers(session);
 					for(Session watcher : watchers){
 						try {
 							watcher.getBasicRemote().sendText(message);
@@ -49,8 +48,15 @@ public class UserEndpoint extends Endpoint {
 	@Override
 	public void onClose(Session session, CloseReason closeReason) {
 		sessions.remove(session.getId());
-		System.out.println("User connection closed (session № " + session.getId() + ")");
-		System.out.println(closeReason);
+		for(Session watcher : forwards.getWatchers(session)){
+			try {
+				forwards.stopWatching(session);
+				watcher.getBasicRemote().sendText(Message.KENAVO.getMessage());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("User connection closed (session № " + session.getId() + " " + session + ")");
 	}
 
 	@Override
