@@ -28,7 +28,7 @@ public class WatchEndpoint extends Endpoint {
 			public void onMessage(String message) {
 				if(sessions.containsKey(message)){
 					Session clientSession = sessions.get(message);
-					forwards.put(clientSession.getId(), session);
+					forwards.put(clientSession, session);
 				}
 			}
 		});

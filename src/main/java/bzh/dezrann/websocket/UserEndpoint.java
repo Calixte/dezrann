@@ -5,13 +5,15 @@ import bzh.dezrann.Message;
 import bzh.dezrann.config.Config;
 import bzh.dezrann.Sessions;
 import javax.websocket.*;
+import java.io.IOException;
+import java.util.Set;
 
-public class ListenEndpoint extends Endpoint {
+public class UserEndpoint extends Endpoint {
 
 	private Sessions sessions;
 	private Forwards forwards;
 
-	public ListenEndpoint(){
+	public UserEndpoint(){
 		this.sessions = Config.injector.getInstance(Sessions.class);
 		this.forwards = Config.injector.getInstance(Forwards.class);
 	}
@@ -22,10 +24,15 @@ public class ListenEndpoint extends Endpoint {
 		session.addMessageHandler(new MessageHandler.Whole<String>() {
 			@Override
 			public void onMessage(String message) {
-				if(forwards.containsKey(session.getId())){
-					Session watcher = forwards.get(session.getId());
-					System.out.println("Forwarding to " + watcher);
-					watcher.getAsyncRemote().sendText(message);
+				if(forwards.containsUserId(session.getId())){
+					Set<Session> watchers = forwards.getWatchers(session.getId());
+					for(Session watcher : watchers){
+						try {
+							watcher.getBasicRemote().sendText(message);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 				}
 			}
 		});
@@ -35,5 +42,6 @@ public class ListenEndpoint extends Endpoint {
 	@Override
 	public void onClose(Session session, CloseReason closeReason) {
 		sessions.remove(session.getId());
+
 	}
 }
