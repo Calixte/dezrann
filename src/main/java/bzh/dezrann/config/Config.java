@@ -37,8 +37,8 @@ public class Config extends GuiceServletContextListener implements ServerApplica
 		Set<ServerEndpointConfig> result = new HashSet<>();
 
 		if (scanned.contains(ListenEndpoint.class)) {
-			result.add(ServerEndpointConfig.Builder.create(ListenEndpoint.class, "/listen").build());
-			result.add(ServerEndpointConfig.Builder.create(WatchEndpoint.class, "/watch").build());
+			result.add(ServerEndpointConfig.Builder.create(ListenEndpoint.class, "/socket/listen").build());
+			result.add(ServerEndpointConfig.Builder.create(WatchEndpoint.class, "/socket/watch").build());
 		}
 
 		return result;

@@ -1,6 +1,7 @@
 package bzh.dezrann.websocket;
 
 import bzh.dezrann.Forwards;
+import bzh.dezrann.Message;
 import bzh.dezrann.config.Config;
 import bzh.dezrann.Sessions;
 import javax.websocket.*;
@@ -17,6 +18,7 @@ public class ListenEndpoint extends Endpoint {
 
 	@Override
 	public void onOpen(Session session, EndpointConfig endpointConfig) {
+		session.getAsyncRemote().sendText(Message.DEMAT.getMessage());
 		session.addMessageHandler(new MessageHandler.Whole<String>() {
 			@Override
 			public void onMessage(String message) {

@@ -1,6 +1,7 @@
 package bzh.dezrann.websocket;
 
 import bzh.dezrann.Forwards;
+import bzh.dezrann.Message;
 import bzh.dezrann.Sessions;
 import bzh.dezrann.config.Config;
 
