@@ -24,6 +24,10 @@ function watcherInit(id, c) {
 		ws.send(id);
 	};
 	ws.onmessage = function (messageEvent) {
+		if (messageEvent.data == 'kenavo') {
+			alert('Client disconnected');
+			return;
+		}
 		var msg = JSON.parse(messageEvent.data);
 		switch (msg.action) {
 			case 'move' :
