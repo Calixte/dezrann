@@ -1,19 +1,30 @@
-package bzh.dezrann;
+package bzh.dezrann.websocket;
+
+import bzh.dezrann.config.Config;
+import bzh.dezrann.Sessions;
 
 import java.io.IOException;
 
-import javax.websocket.Endpoint;
-import javax.websocket.EndpointConfig;
-import javax.websocket.MessageHandler;
-import javax.websocket.RemoteEndpoint;
-import javax.websocket.Session;
+import javax.websocket.*;
 
 public class EchoEndpoint extends Endpoint {
+
+	private Sessions sessions;
+
+	public EchoEndpoint(){
+		this.sessions = Config.injector.getInstance(Sessions.class);
+	}
 
 	@Override
 	public void onOpen(Session session, EndpointConfig endpointConfig) {
 		RemoteEndpoint.Basic remoteEndpointBasic = session.getBasicRemote();
 		session.addMessageHandler(new EchoMessageHandler(remoteEndpointBasic));
+		sessions.put(session.getId(), session);
+	}
+
+	@Override
+	public void onClose(Session session, CloseReason closeReason) {
+		sessions.remove(session);
 	}
 
 	private static class EchoMessageHandler implements MessageHandler.Whole<String> {
