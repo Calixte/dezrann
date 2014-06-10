@@ -21,10 +21,13 @@ public class WatchEndpoint extends Endpoint {
 
 	@Override
 	public void onOpen(Session session, EndpointConfig config) {
-		session.addMessageHandler((MessageHandler.Whole<String>) message -> {
-			if(sessions.containsKey(message)){
-				Session clientSession = sessions.get(message);
-				forwards.put(clientSession, session);
+		session.addMessageHandler(new MessageHandler.Whole<String>() {
+			@Override
+			public void onMessage(String message) {
+				if(sessions.containsKey(message)){
+					Session clientSession = sessions.get(message);
+					forwards.put(clientSession, session);
+				}
 			}
 		});
 	}
