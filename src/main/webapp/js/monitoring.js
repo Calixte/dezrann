@@ -21,7 +21,9 @@ function watcherInit(id, c) {
 	var config = checkConfig(c);
 	var url = (config.secure ? 'wss' : 'ws') + '://' + config.host + ':' + config.port + config.path;
 	var ws = new WebSocket(url);
-	ws.send(id);
+	sw.onopen = function() {
+		ws.send(id);
+	};
 	ws.onmessage = function (messageEvent) {
 		consoleDiv.textContent += '<br>' + messageEvent.data;
 	}
