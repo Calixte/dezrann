@@ -17,10 +17,13 @@ public class ListenEndpoint extends Endpoint {
 
 	@Override
 	public void onOpen(Session session, EndpointConfig endpointConfig) {
-		session.addMessageHandler((MessageHandler.Whole<String>) message -> {
-			if(forwards.containsKey(session)){
-				Session watcher = forwards.get(session);
-				watcher.getAsyncRemote().sendText(message);
+		session.addMessageHandler(new MessageHandler.Whole<String>() {
+			@Override
+			public void onMessage(String message) {
+				if(forwards.containsKey(session)){
+					Session watcher = forwards.get(session);
+					watcher.getAsyncRemote().sendText(message);
+				}
 			}
 		});
 		sessions.put(session.getId(), session);
