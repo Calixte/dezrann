@@ -7,8 +7,8 @@ import java.util.*;
 @Singleton
 public class Forwards {
 
-	private Map<String, Set<Session>> userToWatchers;
-	private Map<Session, String> watcherToUser;
+	private Map<Session, Set<Session>> userToWatchers;
+	private Map<Session, Session> watcherToUser;
 
 	public Forwards(){
 		userToWatchers = new HashMap<>();
@@ -16,20 +16,37 @@ public class Forwards {
 	}
 
 	public void put(Session user, Session watcher){
-		if(userToWatchers.containsKey(user.getId())){
-			userToWatchers.get(user.getId()).add(watcher);
+		if(userToWatchers.containsKey(user)){
+			userToWatchers.get(user).add(watcher);
 		}else{
 			Set<Session> watchers = new HashSet<>();
 			watchers.add(watcher);
-			userToWatchers.put(user.getId(), watchers);
+			userToWatchers.put(user, watchers);
 		}
 	}
 
-	public boolean containsUserId(String id) {
-		return userToWatchers.containsKey(id);
+	public boolean containsUser(Session userSession) {
+		return userToWatchers.containsKey(userSession);
 	}
 
-	public Set<Session> getWatchers(String id) {
-		return userToWatchers.get(id);
+	public Set<Session> getWatchers(Session userSession) {
+		return userToWatchers.get(userSession);
+	}
+
+	public Session stopWatching(Session session) {
+		watcherToUser.remove(session);
+		Session clientSession = null;
+		boolean deleteSet = false;
+		for(Map.Entry<Session, Set<Session>> watchers : userToWatchers.entrySet()){
+			if (watchers.getValue().remove(session)) {
+				deleteSet = watchers.getValue().isEmpty();
+				clientSession = watchers.getKey();
+				break;
+			}
+		}
+		if(deleteSet){
+			userToWatchers.remove(clientSession);
+		}
+		return clientSession;
 	}
 }
