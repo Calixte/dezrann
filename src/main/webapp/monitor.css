@@ -1,0 +1,14 @@
+#cursor {
+	position: relative;
+}
+#cursor div {
+	background-color: red;
+	width: 10px;
+	height: 10px;
+	position: relative;
+	top: -5px;
+	left: -5px;
+}
+#frame {
+	border: solid;
+}

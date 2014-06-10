@@ -24,6 +24,18 @@ function watcherInit(id, c) {
 		ws.send(id);
 	};
 	ws.onmessage = function (messageEvent) {
-		document.getElementById('console').innerHTML += '<br>' + messageEvent.data;
+		var msg = JSON.parse(messageEvent.data);
+		switch (msg.action) {
+			case 'move' :
+				document.getElementById('cursor').style.left = msg.x + 'px';
+				document.getElementById('cursor').style.top = msg.y + 'px';
+				break;
+			case 'click' :
+				break;
+			case 'resize' :
+				document.getElementById('frame').style.width = msg.x + 'px';
+				document.getElementById('frame').style.height = msg.y + 'px';
+				break
+		}
 	}
 }
