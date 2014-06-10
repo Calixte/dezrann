@@ -5,6 +5,7 @@ import bzh.dezrann.Message;
 import bzh.dezrann.config.Config;
 import bzh.dezrann.Sessions;
 import javax.websocket.*;
+import java.io.IOException;
 
 public class ListenEndpoint extends Endpoint {
 
@@ -25,7 +26,12 @@ public class ListenEndpoint extends Endpoint {
 			public void onMessage(String message) {
 				if(forwards.containsKey(session.getId())){
 					Session watcher = forwards.get(session.getId());
-					watcher.getAsyncRemote().sendText(message);
+					try {
+						watcher.getBasicRemote().sendText(message);
+					} catch (IOException e) {
+						System.err.println("Error sending message to watcher");
+						e.printStackTrace();
+					}
 				}
 			}
 		});
@@ -36,5 +42,12 @@ public class ListenEndpoint extends Endpoint {
 	public void onClose(Session session, CloseReason closeReason) {
 		sessions.remove(session.getId());
 		System.out.println("User connection closed (session № " + session.getId() + ")");
+		System.out.println(closeReason);
+	}
+
+	@Override
+	public void onError(Session session, Throwable thr) {
+		System.err.println("User connection errored (session № " + session.getId() + ")");
+		thr.printStackTrace();
 	}
 }
