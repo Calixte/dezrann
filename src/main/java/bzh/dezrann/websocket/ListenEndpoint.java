@@ -4,7 +4,12 @@ import bzh.dezrann.Forwards;
 import bzh.dezrann.Message;
 import bzh.dezrann.config.Config;
 import bzh.dezrann.Sessions;
-import javax.websocket.*;
+
+import javax.websocket.CloseReason;
+import javax.websocket.Endpoint;
+import javax.websocket.EndpointConfig;
+import javax.websocket.MessageHandler.Whole;
+import javax.websocket.Session;
 import java.io.IOException;
 
 public class ListenEndpoint extends Endpoint {
@@ -21,7 +26,7 @@ public class ListenEndpoint extends Endpoint {
 	public void onOpen(Session session, EndpointConfig endpointConfig) {
 		System.out.println("User connection opened (session № " + session.getId() + ")");
 		session.getAsyncRemote().sendText(Message.DEMAT.getMessage());
-		session.addMessageHandler(new MessageHandler.Whole<String>() {
+		session.addMessageHandler(new Whole<String>() {
 			@Override
 			public void onMessage(String message) {
 				if(forwards.containsKey(session.getId())){
