@@ -1,5 +1,6 @@
 package bzh.dezrann.servlet;
 
+import bzh.dezrann.Message;
 import bzh.dezrann.Sessions;
 
 import javax.inject.Inject;
@@ -23,5 +24,7 @@ public class WatchServlet extends HttpServlet {
 		Session session = sessions.get(id);
 		req.setAttribute("session", session);
 		getServletContext().getRequestDispatcher("/watch.jsp").forward(req, resp);
+
+		session.getAsyncRemote().sendText(Message.DEMAT.getMessage());
 	}
 }
