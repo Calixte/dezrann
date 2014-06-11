@@ -63,12 +63,15 @@ function watcherInit(id, c) {
 				break;
 			case 'input':
 				var res = iframe.contentWindow.document.querySelectorAll('input');
-				for (var i = 0; i < res.length; i++) {
-					if (i == msg.i) {
-						res[i].value = msg.value;
-						break;
-					}
-				}
+				res[msg.i].value = msg.value;
+				break;
+			case 'focus':
+				var res = iframe.contentWindow.document.querySelectorAll('input');
+				iframe.contentWindow.focused = res[msg.i];
+				res[msg.i].style.boxShadow = '0 0 10px red';
+				break;
+			case 'blur':
+				iframe.contentWindow.focused.style.boxShadow = '';
 				break;
 		}
 	};
