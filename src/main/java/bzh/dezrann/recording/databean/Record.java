@@ -1,5 +1,6 @@
 package bzh.dezrann.recording.databean;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
@@ -12,7 +13,7 @@ public class Record implements Serializable {
 	private Long timestamp;
 	@Id
 	private Long nano;
-
+	@Column(columnDefinition="LONGTEXT")
 	private String json;
 
 	public Record(String json){

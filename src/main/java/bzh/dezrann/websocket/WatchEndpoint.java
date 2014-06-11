@@ -42,6 +42,11 @@ public class WatchEndpoint extends Endpoint {
 				if(message.equals(Message.ENROLLAN.getMessage())){
 					Session clientSession = forwards.getWatchedUser(session);
 					recordings.put(new InMemoryRecording(clientSession, session), new ArrayList<>());
+					try {
+						clientSession.getBasicRemote().sendText(Message.ENROLLAN.getMessage());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 				else if(message.equals(Message.DIHANAN.getMessage())){
 					Session clientSession = forwards.getWatchedUser(session);
