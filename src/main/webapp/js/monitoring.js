@@ -1,5 +1,6 @@
-var frame, cursor;
+var iframe, frame, cursor;
 document.addEventListener("DOMContentLoaded", function(event) {
+	iframe = document.getElementById('iframe');
 	frame = document.getElementById('frame');
 	cursor = document.getElementById('cursor');
 });
@@ -24,7 +25,7 @@ function checkConfig(config) {
 function watcherInit(id, c) {
 	var config = checkConfig(c);
 	var url = (config.secure ? 'wss' : 'ws') + '://' + config.host + ':' + config.port + config.path;
-	var ws = new WebSocket(url);
+	ws = new WebSocket(url);
 	ws.onopen = function() {
 		ws.send(id);
 	};
@@ -52,13 +53,22 @@ function watcherInit(id, c) {
 				frame.style.height = msg.y + 'px';
 				break;
 			case 'content':
-				frame.contentWindow.document.documentElement.innerHTML = msg.data;
+				iframe.contentWindow.document.documentElement.innerHTML = msg.data;
 				break;
 			case 'out':
 				cursor.style.backgroundColor = 'silver';
 				break;
 			case 'over':
 				cursor.style.backgroundColor = 'red';
+				break;
+			case 'input':
+				var res = iframe.contentWindow.document.querySelectorAll('input');
+				for (var i = 0; i < res.length; i++) {
+					if (i == msg.i) {
+						res[i].value = msg.value;
+						break;
+					}
+				}
 				break;
 		}
 	};
