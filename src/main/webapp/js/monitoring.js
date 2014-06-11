@@ -1,5 +1,6 @@
-var frame, cursor, ws, toggleRecording;
+var iframe, frame, cursor, ws, toggleRecording;
 document.addEventListener("DOMContentLoaded", function(event) {
+	iframe = document.getElementById('iframe');
 	frame = document.getElementById('frame');
 	cursor = document.getElementById('cursor');
 	toggleRecording = document.getElementById('toggleRecording');
@@ -54,13 +55,22 @@ function watcherInit(id, c) {
 				frame.style.height = msg.y + 'px';
 				break;
 			case 'content':
-				frame.contentWindow.document.documentElement.innerHTML = msg.data;
+				iframe.contentWindow.document.documentElement.innerHTML = msg.data;
 				break;
 			case 'out':
 				cursor.style.backgroundColor = 'silver';
 				break;
 			case 'over':
 				cursor.style.backgroundColor = 'red';
+				break;
+			case 'input':
+				var res = iframe.contentWindow.document.querySelectorAll('input');
+				for (var i = 0; i < res.length; i++) {
+					if (i == msg.i) {
+						res[i].value = msg.value;
+						break;
+					}
+				}
 				break;
 		}
 	};

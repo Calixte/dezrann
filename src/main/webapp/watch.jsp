@@ -11,9 +11,9 @@
 <body>
 	<h1>You are monitoring session ${session.id}</h1>
 	<button id="toggleRecording">Start recording</button>
-	<div id="cursor">
-		<div></div>
+	<div id="cursor"></div>
+	<div id="frame">
+		<iframe id="iframe"></iframe>
 	</div>
-	<iframe id="frame"></iframe>
 </body>
 </html>
