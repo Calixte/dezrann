@@ -39,7 +39,15 @@ public class WatchEndpoint extends Endpoint {
 		session.addMessageHandler(new Whole<String>() {
 			@Override
 			public void onMessage(String message) {
-				if (sessions.containsKey(message)) {
+				if(message.equals(Message.ENROLLAN.getMessage())){
+					Session clientSession = forwards.getWatchedUser(session);
+					recordings.put(new InMemoryRecording(clientSession, session), new ArrayList<>());
+				}
+				else if(message.equals(Message.DIHANAN.getMessage())){
+					Session clientSession = forwards.getWatchedUser(session);
+					recordings.stopRecording(clientSession, session);
+				}
+				else if (sessions.containsKey(message)) {
 					Session clientSession = sessions.get(message);
 					try {
 						clientSession.getBasicRemote().sendText(Message.DEMAT.getMessage());
@@ -47,7 +55,6 @@ public class WatchEndpoint extends Endpoint {
 						e.printStackTrace();
 					}
 					forwards.put(clientSession, session);
-					recordings.put(new InMemoryRecording(clientSession, session), new ArrayList<>());
 				}
 			}
 		});
@@ -57,22 +64,7 @@ public class WatchEndpoint extends Endpoint {
 	public void onClose(Session session, CloseReason closeReason) {
 		System.out.println("Watcher connection closed (session № " + session.getId() + " " + session + ")");
 		Session clientSession = forwards.stopWatching(session);
-		Collection<Record> records = recordings.get(new InMemoryRecording(clientSession, session));
-		Recording recording = new Recording();
-		entityManager.getTransaction().begin();
-		entityManager.persist(recording);
-		entityManager.getTransaction().commit();
-		recordings.remove(new InMemoryRecording(clientSession, session));
-		try{
-		entityManager.getTransaction().begin();
-			for(Record record : records){
-				record.setRecordingId(recording.getId());
-				entityManager.persist(record);
-			}
-			entityManager.getTransaction().commit();
-		}catch(Throwable t){
-			t.printStackTrace();
-		}
+		recordings.stopRecording(clientSession, session);
 		if(!forwards.containsUser(clientSession)){
 			try {
 				clientSession.getBasicRemote().sendText(Message.KENAVO.getMessage());

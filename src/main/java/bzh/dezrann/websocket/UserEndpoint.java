@@ -47,6 +47,13 @@ public class UserEndpoint extends Endpoint {
 							System.err.println("Error sending message to watcher");
 							e.printStackTrace();
 						}
+						System.out.println(recordings.size());
+						if(recordings.size() == 1){
+							System.out.println(session + "\t" + watcher);
+							System.out.println(recordings.keySet().iterator().next().getUserSession() + "\t" + recordings.keySet().iterator().next().getWatcherSession());
+							System.out.println(new InMemoryRecording(session, watcher));
+							System.out.println(recordings.keySet().iterator().next());
+						}
 						if(recordings.containsKey(new InMemoryRecording(session, watcher))){
 							Collection<Record> records = recordings.get(new InMemoryRecording(session, watcher));
 							records.add(new Record(message));

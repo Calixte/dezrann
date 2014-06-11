@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h1>You are monitoring session ${session.id}</h1>
-	<button>Start recording</button>
+	<button id="toggleRecording">Start recording</button>
 	<div id="cursor">
 		<div></div>
 	</div>
