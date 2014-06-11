@@ -1,5 +1,7 @@
 package bzh.dezrann;
 
+import bzh.dezrann.recording.databean.Record;
+
 import javax.inject.Singleton;
 import javax.websocket.Session;
 import java.util.*;

@@ -2,7 +2,9 @@ package bzh.dezrann;
 
 public enum Message {
 	DEMAT("demat"),
-	KENAVO("kenavo");
+	KENAVO("kenavo"),
+	DIHANAN("dihanañ"),
+	ENROLLAN("enrollañ");
 
 	private String message;
 
