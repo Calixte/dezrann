@@ -1,16 +1,12 @@
 #cursor {
+	background-color: black;
 	position: relative;
 	width: 10px;
 	height: 10px;
-}
-#cursor div {
-	background-color: red;
-	position: relative;
-	top: -5px;
-	left: -5px;
-	width: 10px;
-	height: 10px;
+	z-index: 1;
 }
 #frame {
-	border: solid;
+	position: relative;
+	top: -10px;
+	border: solid 20px;
 }

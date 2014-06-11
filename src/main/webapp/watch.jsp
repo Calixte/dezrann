@@ -10,10 +10,9 @@
 </head>
 <body>
 <h1>You are monitoring session ${session.id}</h1>
-<div id="frame">
 	<div id="cursor">
 		<div></div>
 	</div>
-</div>
+	<iframe id="frame"></iframe>
 </body>
 </html>
