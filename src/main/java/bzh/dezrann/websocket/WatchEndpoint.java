@@ -54,12 +54,12 @@ public class WatchEndpoint extends Endpoint {
 				}
 				else if (sessions.containsKey(message)) {
 					Session clientSession = sessions.get(message);
+					forwards.put(clientSession, session);
 					try {
 						clientSession.getBasicRemote().sendText(Message.DEMAT.getMessage());
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					forwards.put(clientSession, session);
 				}
 			}
 		});
