@@ -27,7 +27,7 @@ public class Config extends GuiceServletContextListener implements ServerApplica
 				serve("/").with(MainServlet.class);
 				serve("/watch").with(WatchServlet.class);
 			}
-		});
+		}, new DatabaseModule());
 		return injector;
 	}
 
