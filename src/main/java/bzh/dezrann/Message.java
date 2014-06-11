@@ -3,8 +3,8 @@ package bzh.dezrann;
 public enum Message {
 	DEMAT("demat"),
 	KENAVO("kenavo"),
-	DIHANAN("dihanañ"),
-	ENROLLAN("enrollañ");
+	DIHANAN("dihanan"),
+	ENROLLAN("enrollan");
 
 	private String message;
 

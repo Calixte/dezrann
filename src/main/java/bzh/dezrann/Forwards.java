@@ -25,6 +25,7 @@ public class Forwards {
 			watchers.add(watcher);
 			userToWatchers.put(user, watchers);
 		}
+		watcherToUser.put(watcher, user);
 	}
 
 	public boolean containsUser(Session userSession) {
@@ -50,5 +51,9 @@ public class Forwards {
 			userToWatchers.remove(clientSession);
 		}
 		return clientSession;
+	}
+
+	public Session getWatchedUser(Session watcher) {
+		return watcherToUser.get(watcher);
 	}
 }

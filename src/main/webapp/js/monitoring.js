@@ -1,9 +1,11 @@
-var iframe, frame, cursor, filter;
+var iframe, frame, cursor, filter, ws, toggleRecording;
 document.addEventListener("DOMContentLoaded", function(event) {
 	iframe = document.getElementById('iframe');
 	frame = document.getElementById('frame');
 	cursor = document.getElementById('cursor');
 	filter = document.getElementById('filter');
+	toggleRecording = document.getElementById('toggleRecording');
+	toggleRecording.onclick = startRecording;
 });
 function checkConfig(config) {
 	if (config == undefined) {
@@ -26,7 +28,7 @@ function checkConfig(config) {
 function watcherInit(id, c) {
 	var config = checkConfig(c);
 	var url = (config.secure ? 'wss' : 'ws') + '://' + config.host + ':' + config.port + config.path;
-	var ws = new WebSocket(url);
+	ws = new WebSocket(url);
 	ws.onopen = function() {
 		ws.send(id);
 	};
@@ -79,4 +81,14 @@ function watcherInit(id, c) {
 				break;
 		}
 	};
+}
+function startRecording(){
+	toggleRecording.textContent = 'Stop recording';
+	toggleRecording.onclick = stopRecording;
+	ws.send("enrollan");
+}
+function stopRecording(){
+	toggleRecording.textContent = 'Start recording';
+	toggleRecording.onclick = startRecording;
+	ws.send("dihanan")
 }
