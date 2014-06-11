@@ -1,8 +1,9 @@
-var iframe, frame, cursor;
+var iframe, frame, cursor, filter;
 document.addEventListener("DOMContentLoaded", function(event) {
 	iframe = document.getElementById('iframe');
 	frame = document.getElementById('frame');
 	cursor = document.getElementById('cursor');
+	filter = document.getElementById('filter');
 });
 function checkConfig(config) {
 	if (config == undefined) {
@@ -25,7 +26,7 @@ function checkConfig(config) {
 function watcherInit(id, c) {
 	var config = checkConfig(c);
 	var url = (config.secure ? 'wss' : 'ws') + '://' + config.host + ':' + config.port + config.path;
-	ws = new WebSocket(url);
+	var ws = new WebSocket(url);
 	ws.onopen = function() {
 		ws.send(id);
 	};
@@ -51,6 +52,9 @@ function watcherInit(id, c) {
 			case 'resize':
 				frame.style.width = msg.x + 'px';
 				frame.style.height = msg.y + 'px';
+				filter.style.width = msg.x + 'px';
+				filter.style.height = msg.y + 'px';
+				filter.style.top = - 5 - msg.y + 'px';
 				break;
 			case 'content':
 				iframe.contentWindow.document.documentElement.innerHTML = msg.data;

@@ -14,6 +14,7 @@
 	<div id="cursor"></div>
 	<div id="frame">
 		<iframe id="iframe"></iframe>
+		<div id="filter"></div>
 	</div>
 </body>
 </html>
