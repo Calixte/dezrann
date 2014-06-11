@@ -1,3 +1,8 @@
+var frame, cursor;
+document.addEventListener("DOMContentLoaded", function(event) {
+	frame = document.getElementById('frame');
+	cursor = document.getElementById('cursor');
+});
 function checkConfig(config) {
 	if (config == undefined) {
 		config = {}
@@ -25,21 +30,36 @@ function watcherInit(id, c) {
 	};
 	ws.onmessage = function (messageEvent) {
 		if (messageEvent.data == 'kenavo') {
-			alert('Client disconnected');
+			alert('Client disconnected\nYou will be redirected');
+			location = '/';
 			return;
 		}
 		var msg = JSON.parse(messageEvent.data);
 		switch (msg.action) {
-			case 'move' :
-				document.getElementById('cursor').style.left = msg.x + 'px';
-				document.getElementById('cursor').style.top = msg.y + 'px';
+			case 'move':
+				//20 is the frame border size
+				cursor.style.left = (msg.x + 20 - 5) + 'px';
+				cursor.style.top = (msg.y + 20 - 5) + 'px';
 				break;
-			case 'click' :
+			case 'click':
+				cursor.style.backgroundColor = 'blue';
+				setTimeout(function() {
+					cursor.style.backgroundColor = 'red';
+				}, 400);
 				break;
-			case 'resize' :
-				document.getElementById('frame').style.width = msg.x + 'px';
-				document.getElementById('frame').style.height = msg.y + 'px';
-				break
+			case 'resize':
+				frame.style.width = msg.x + 'px';
+				frame.style.height = msg.y + 'px';
+				break;
+			case 'content':
+				frame.contentWindow.document.documentElement.innerHTML = msg.data;
+				break;
+			case 'out':
+				cursor.style.backgroundColor = 'silver';
+				break;
+			case 'over':
+				cursor.style.backgroundColor = 'red';
+				break;
 		}
-	}
+	};
 }

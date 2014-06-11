@@ -9,12 +9,11 @@
 	<script>watcherInit('${session.id}', {path: '/socket/watch'})</script>
 </head>
 <body>
-<h1>You are monitoring session ${session.id}</h1>
-<button>Start recording</button>
-<div id="frame">
+	<h1>You are monitoring session ${session.id}</h1>
+	<button>Start recording</button>
 	<div id="cursor">
 		<div></div>
 	</div>
-</div>
+	<iframe id="frame"></iframe>
 </body>
 </html>
