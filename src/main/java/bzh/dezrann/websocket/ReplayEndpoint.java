@@ -3,7 +3,6 @@ package bzh.dezrann.websocket;
 
 import bzh.dezrann.config.Config;
 import bzh.dezrann.recording.databean.Record;
-import bzh.dezrann.recording.databean.Recording;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -11,7 +10,6 @@ import javax.websocket.Endpoint;
 import javax.websocket.EndpointConfig;
 import javax.websocket.MessageHandler.Whole;
 import javax.websocket.Session;
-import java.io.IOException;
 import java.util.List;
 
 public class ReplayEndpoint extends Endpoint {
@@ -31,6 +29,9 @@ public class ReplayEndpoint extends Endpoint {
 					Query query = entityManager.createQuery("from Record where recordingId = :id order by timestamp", Record.class);
 					query.setParameter("id", Integer.parseInt(message));
 					List<Record> records = query.getResultList();
+					if(records.isEmpty()){
+						return;
+					}
 					while(true){
 						Long pastTime = records.get(0).getTimestamp();
 						try{
@@ -40,7 +41,6 @@ public class ReplayEndpoint extends Endpoint {
 								session.getBasicRemote().sendText(record.getJson());
 							}
 						}catch(Exception e){
-							e.printStackTrace();
 							break;
 						}
 					}
