@@ -31,5 +31,6 @@ public class MainServlet extends HttpServlet {
 		req.setAttribute("sessions", sessions);
 		req.setAttribute("recordings", recordings);
 		getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
+		req.getSession().removeAttribute("error");
 	}
 }

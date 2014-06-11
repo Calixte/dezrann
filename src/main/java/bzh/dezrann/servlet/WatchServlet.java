@@ -22,7 +22,12 @@ public class WatchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = req.getParameter("id");
 		Session session = sessions.get(id);
-		req.setAttribute("session", session);
-		getServletContext().getRequestDispatcher("/watch.jsp").forward(req, resp);
+		if (session != null) {
+			req.setAttribute("session", session);
+			getServletContext().getRequestDispatcher("/watch.jsp").forward(req, resp);
+		} else {
+			req.getSession().setAttribute("error", "session not live");
+			resp.sendRedirect("/");
+		}
 	}
 }

@@ -34,8 +34,8 @@ function watcherInit(id, c) {
 	};
 	ws.onmessage = function (messageEvent) {
 		if (messageEvent.data == 'kenavo') {
-			alert('Client disconnected\nYou will be redirected');
-			location = '/';
+//			alert('Client disconnected\nYou will be redirected');
+			location = '/?reason=' + encodeURIComponent('client disconnected');
 			return;
 		}
 		var msg = JSON.parse(messageEvent.data);
