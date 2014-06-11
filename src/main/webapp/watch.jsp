@@ -10,10 +10,12 @@
 </head>
 <body>
 	<h1>You are monitoring session ${session.id}</h1>
+	<button onclick="location='/'">&#8962;</button>
 	<button id="toggleRecording">Start recording</button>
 	<div id="cursor"></div>
 	<div id="frame">
 		<iframe id="iframe"></iframe>
+		<div id="filter"></div>
 	</div>
 </body>
 </html>

@@ -1,8 +1,9 @@
-var iframe, frame, cursor, ws, toggleRecording;
+var iframe, frame, cursor, filter, ws, toggleRecording;
 document.addEventListener("DOMContentLoaded", function(event) {
 	iframe = document.getElementById('iframe');
 	frame = document.getElementById('frame');
 	cursor = document.getElementById('cursor');
+	filter = document.getElementById('filter');
 	toggleRecording = document.getElementById('toggleRecording');
 	toggleRecording.onclick = startRecording;
 });
@@ -53,6 +54,9 @@ function watcherInit(id, c) {
 			case 'resize':
 				frame.style.width = msg.x + 'px';
 				frame.style.height = msg.y + 'px';
+				filter.style.width = msg.x + 'px';
+				filter.style.height = msg.y + 'px';
+				filter.style.top = - 5 - msg.y + 'px';
 				break;
 			case 'content':
 				iframe.contentWindow.document.documentElement.innerHTML = msg.data;
@@ -65,12 +69,15 @@ function watcherInit(id, c) {
 				break;
 			case 'input':
 				var res = iframe.contentWindow.document.querySelectorAll('input');
-				for (var i = 0; i < res.length; i++) {
-					if (i == msg.i) {
-						res[i].value = msg.value;
-						break;
-					}
-				}
+				res[msg.i].value = msg.value;
+				break;
+			case 'focus':
+				var res = iframe.contentWindow.document.querySelectorAll('input');
+				iframe.contentWindow.focused = res[msg.i];
+				res[msg.i].style.boxShadow = '0 0 10px red';
+				break;
+			case 'blur':
+				iframe.contentWindow.focused.style.boxShadow = '';
 				break;
 		}
 	};
