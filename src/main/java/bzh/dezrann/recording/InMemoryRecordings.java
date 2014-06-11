@@ -25,7 +25,7 @@ public class InMemoryRecordings extends HashMap<InMemoryRecording, Collection<Re
 		entityManager.getTransaction().begin();
 		entityManager.persist(recording);
 		entityManager.getTransaction().commit();
-		System.out.println("New record: " + recording.getId() + " with " + records.size() + " records.");
+		System.out.println("New recording: " + recording.getId() + " with " + records.size() + " records.");
 		this.remove(new InMemoryRecording(userSession, watcherSession));
 		try{
 			entityManager.getTransaction().begin();
