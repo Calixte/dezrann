@@ -21,11 +21,13 @@
 		<caption>Sessions (${sessions.size()})</caption>
 		<tr>
 			<th>ID</th>
+			<th>UUID</th>
 			<th>Actions</th>
 		</tr>
 		<c:forEach items="${sessions}" var="session">
 			<tr>
 				<td>${session.key}</td>
+				<td>${session.value.userProperties.cookie}</td>
 				<td><a href="<c:url value="/watch?id=${session.key}"/>">Watch</a></td>
 			</tr>
 		</c:forEach>
