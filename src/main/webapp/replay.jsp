@@ -11,8 +11,9 @@
 	<script src="js/replay.js"></script>
 </head>
 <body>
-<h1>You are replaying recording ${recordingId}</h1>
 <p style="display:none;" id ="jsonContainer">${records}</p>
+<h1>You are replaying recording ${recordingId}</h1>
+<button onclick="location='/'">&#8962;</button>
 <div id="cursor"></div>
 <div id="frame">
 	<iframe id="iframe"></iframe>

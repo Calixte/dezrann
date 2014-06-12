@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 	var toggleRecording = document.getElementById('toggleRecording');
-	toggleRecording.onclick = startRecording;
 	var startRecording = function(){
 		toggleRecording.textContent = 'Stop recording';
 		toggleRecording.onclick = stopRecording;
@@ -11,4 +10,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		toggleRecording.onclick = startRecording;
 		ws.send("dihanan");
 	};
+	toggleRecording.onclick = startRecording;
 });
