@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Singleton
 public class ReplayServlet extends HttpServlet {
@@ -32,7 +31,10 @@ public class ReplayServlet extends HttpServlet {
 		Query query = entityManager.createQuery("from Record where recordingId = :recordingId order by timestamp", Record.class);
 		query.setParameter("recordingId", Integer.parseInt(recordingId));
 		List<Record> records = query.getResultList();
-		List<String> jsonRecords = records.stream().map(Record::getJson).collect(Collectors.toList());
+		List<String> jsonRecords = new ArrayList<>();
+		for(Record record : records){
+			jsonRecords.add(record.getJson());
+		}
 		req.setAttribute("records", gson.toJson(jsonRecords));
 		getServletContext().getRequestDispatcher("/replay.jsp").forward(req, resp);
 	}

@@ -35,14 +35,14 @@ public class WatchEndpoint extends Endpoint {
 	}
 
 	@Override
-	public void onOpen(Session session, EndpointConfig config) {
+	public void onOpen(final Session session, EndpointConfig config) {
 		System.out.println("Watcher connection opened (session № " + session.getId() + " " + session + ")");
 		session.addMessageHandler(new Whole<String>() {
 			@Override
 			public void onMessage(String message) {
 				if(message.equals(Message.ENROLLAN.getMessage())){
 					Session clientSession = forwards.getWatchedUser(session);
-					recordings.put(new InMemoryRecording(clientSession, session), new ArrayList<>());
+					recordings.put(new InMemoryRecording(clientSession, session), new ArrayList<Record>());
 					try {
 						clientSession.getBasicRemote().sendText(Message.ENROLLAN.getMessage());
 					} catch (IOException e) {

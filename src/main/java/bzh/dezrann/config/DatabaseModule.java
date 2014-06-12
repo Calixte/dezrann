@@ -11,12 +11,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class DatabaseModule extends AbstractModule {
 	@Override
@@ -37,7 +37,7 @@ public class DatabaseModule extends AbstractModule {
 			String configPath = root + "dezrann" + File.separator + "database.json";
 			try {
 				dbConfig = gson.fromJson(
-						Files.lines(Paths.get(configPath)).collect(Collectors.joining()),
+						new String(Files.readAllBytes(Paths.get(configPath)), StandardCharsets.UTF_8),
 						DatabaseConfig.class);
 			} catch (IOException e) {
 				System.out.println("Database config file loading error at " + configPath);

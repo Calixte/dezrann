@@ -42,7 +42,7 @@ public class UserEndpoint extends Endpoint {
 	}
 
 	@Override
-	public void onOpen(Session session, EndpointConfig endpointConfig) {
+	public void onOpen(final Session session, EndpointConfig endpointConfig) {
 		System.out.println("User connection opened (session № " + session.getId() + "\t" + session + ")");
 		session.addMessageHandler(new Whole<String>() {
 			@Override
