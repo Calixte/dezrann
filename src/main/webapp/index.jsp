@@ -22,12 +22,14 @@
 		<tr>
 			<th>ID</th>
 			<th>UUID</th>
+			<th>City</th>
 			<th>Actions</th>
 		</tr>
 		<c:forEach items="${sessions}" var="session">
-			<tr>
+			<tr>11
 				<td>${session.key}</td>
 				<td>${session.value.userProperties.cookie}</td>
+				<td>${session.value.userProperties.userInfos.city}</td>
 				<td><a href="<c:url value="/watch?id=${session.key}"/>">Watch</a></td>
 			</tr>
 		</c:forEach>
