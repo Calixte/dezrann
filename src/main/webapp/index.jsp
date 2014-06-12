@@ -6,6 +6,7 @@
 <head>
 	<title>Dezrann - User behaviour analysis</title>
 	<meta charset="utf-8" />
+	<link rel="stylesheet" href="css/index.css"/>
 	<script src="js/index.js"></script>
 </head>
 <body>
@@ -16,9 +17,8 @@
 	<c:if test="${not empty param.reason}">
 		<p>The watching session has terminated (${param.reason})</p>
 	</c:if>
-	<p>User connected: ${sessions.size()}</p>
 	<table>
-		<caption>Sessions</caption>
+		<caption>Sessions (${sessions.size()})</caption>
 		<tr>
 			<th>ID</th>
 			<th>Actions</th>

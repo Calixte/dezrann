@@ -3,7 +3,7 @@
 <head>
 	<title>Dezrann - User behaviour analysis</title>
 	<meta charset="utf-8" />
-	<link rel="stylesheet" href="monitor.css"/>
+	<link rel="stylesheet" href="css/monitor.css"/>
 	<script src="js/monitoring.js"></script>
 	<script src="js/watch.js"></script>
 	<script>watcherInit('${session.id}', {path: '/socket/watch'})</script>

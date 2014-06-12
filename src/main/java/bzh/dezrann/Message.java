@@ -4,7 +4,8 @@ public enum Message {
 	DEMAT("demat"),
 	KENAVO("kenavo"),
 	DIHANAN("dihanan"),
-	ENROLLAN("enrollan");
+	ENROLLAN("enrollan"),
+	KOUN("koun");
 
 	private String message;
 

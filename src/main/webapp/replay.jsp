@@ -6,7 +6,7 @@
 <head>
 	<title>Dezrann - User behaviour analysis</title>
 	<meta charset="utf-8" />
-	<link rel="stylesheet" href="monitor.css"/>
+	<link rel="stylesheet" href="css/monitor.css"/>
 	<script type="text/javascript">
 		var records = '${records}';
 	</script>

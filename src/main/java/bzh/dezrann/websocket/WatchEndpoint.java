@@ -3,6 +3,7 @@ package bzh.dezrann.websocket;
 import bzh.dezrann.Forwards;
 import bzh.dezrann.Message;
 import bzh.dezrann.Sessions;
+import bzh.dezrann.Users;
 import bzh.dezrann.config.Config;
 import bzh.dezrann.recording.InMemoryRecording;
 import bzh.dezrann.recording.InMemoryRecordings;
