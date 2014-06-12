@@ -28,14 +28,15 @@ public class ReplayEndpoint extends Endpoint {
 				try{
 					Query query = entityManager.createQuery("from Record where recordingId = :id order by timestamp", Record.class);
 					query.setParameter("id", Integer.parseInt(message));
-					List<Record> records = query.getResultList();
+					List records = query.getResultList();
 					if(records.isEmpty()){
 						return;
 					}
 					while(true){
-						Long pastTime = records.get(0).getTimestamp();
+						Long pastTime = ((Record)records.get(0)).getTimestamp();
 						try{
-							for(Record record : records){
+							for(Object object_record : records){
+								Record record = (Record)object_record;
 								Thread.sleep(record.getTimestamp()-pastTime);
 								pastTime = record.getTimestamp();
 								session.getBasicRemote().sendText(record.getJson());
