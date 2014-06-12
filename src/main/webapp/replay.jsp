@@ -5,8 +5,9 @@
 	<title>Dezrann - User behaviour analysis</title>
 	<meta charset="utf-8" />
 	<link rel="stylesheet" href="monitor.css"/>
-	<script src="js/monitoring.js"></script>
-	<script>watcherInit('${recordingId}', {path: '/socket/replay'})</script>
+	<script type="text/javascript">
+		var records = '${records}';
+	</script>
 </head>
 <body>
 <h1>You are replaying recording ${recordingId}</h1>
