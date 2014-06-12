@@ -37,46 +37,49 @@ function watcherInit(id, c) {
 			return;
 		}
 		var msg = JSON.parse(messageEvent.data);
-		switch (msg.action) {
-			case 'move':
-				//20 is the frame border size
-				cursor.style.left = (msg.x + 20 - 5) + 'px';
-				cursor.style.top = (msg.y + 20 - 5) + 'px';
-				break;
-			case 'click':
-				cursor.style.backgroundColor = 'blue';
-				setTimeout(function() {
-					cursor.style.backgroundColor = 'red';
-				}, 400);
-				break;
-			case 'resize':
-				frame.style.width = msg.x + 'px';
-				frame.style.height = msg.y + 'px';
-				filter.style.width = msg.x + 'px';
-				filter.style.height = msg.y + 'px';
-				filter.style.top = - 5 - msg.y + 'px';
-				break;
-			case 'content':
-				iframe.contentWindow.document.documentElement.innerHTML = msg.data;
-				break;
-			case 'out':
-				cursor.style.backgroundColor = 'silver';
-				break;
-			case 'over':
-				cursor.style.backgroundColor = 'red';
-				break;
-			case 'input':
-				var res = iframe.contentWindow.document.querySelectorAll('input');
-				res[msg.i].value = msg.value;
-				break;
-			case 'focus':
-				var res = iframe.contentWindow.document.querySelectorAll('input');
-				iframe.contentWindow.focused = res[msg.i];
-				res[msg.i].style.boxShadow = '0 0 10px red';
-				break;
-			case 'blur':
-				iframe.contentWindow.focused.style.boxShadow = '';
-				break;
-		}
+		renderAction(msg);
 	};
+}
+function renderAction(msg) {
+	switch (msg.action) {
+		case 'move':
+			//20 is the frame border size
+			cursor.style.left = (msg.x + 20 - 5) + 'px';
+			cursor.style.top = (msg.y + 20 - 5) + 'px';
+			break;
+		case 'click':
+			cursor.style.backgroundColor = 'blue';
+			setTimeout(function() {
+				cursor.style.backgroundColor = 'red';
+			}, 400);
+			break;
+		case 'resize':
+			frame.style.width = msg.x + 'px';
+			frame.style.height = msg.y + 'px';
+			filter.style.width = msg.x + 'px';
+			filter.style.height = msg.y + 'px';
+			filter.style.top = - 5 - msg.y + 'px';
+			break;
+		case 'content':
+			iframe.contentWindow.document.documentElement.innerHTML = msg.data;
+			break;
+		case 'out':
+			cursor.style.backgroundColor = 'silver';
+			break;
+		case 'over':
+			cursor.style.backgroundColor = 'red';
+			break;
+		case 'input':
+			var res = iframe.contentWindow.document.querySelectorAll('input');
+			res[msg.i].value = msg.value;
+			break;
+		case 'focus':
+			var res = iframe.contentWindow.document.querySelectorAll('input');
+			iframe.contentWindow.focused = res[msg.i];
+			res[msg.i].style.boxShadow = '0 0 10px red';
+			break;
+		case 'blur':
+			iframe.contentWindow.focused.style.boxShadow = '';
+			break;
+	}
 }

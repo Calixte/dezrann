@@ -31,7 +31,7 @@ public class ReplayServlet extends HttpServlet {
 		Query query = entityManager.createQuery("from Record");
 		List<Record> records = query.getResultList();
 		String recordsGson = gson.toJson(records);
-		req.setAttribute("recordsGson", recordsGson);
+		req.setAttribute("records", recordsGson);
 		getServletContext().getRequestDispatcher("/replay.jsp").forward(req, resp);
 	}
 
