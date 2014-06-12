@@ -1,11 +1,9 @@
-var iframe, frame, cursor, filter, ws, toggleRecording;
+var iframe, frame, cursor, filter, ws;
 document.addEventListener("DOMContentLoaded", function(event) {
 	iframe = document.getElementById('iframe');
 	frame = document.getElementById('frame');
 	cursor = document.getElementById('cursor');
 	filter = document.getElementById('filter');
-	toggleRecording = document.getElementById('toggleRecording');
-	toggleRecording.onclick = startRecording;
 });
 function checkConfig(config) {
 	if (config == undefined) {
@@ -81,14 +79,4 @@ function watcherInit(id, c) {
 				break;
 		}
 	};
-}
-function startRecording(){
-	toggleRecording.textContent = 'Stop recording';
-	toggleRecording.onclick = stopRecording;
-	ws.send("enrollan");
-}
-function stopRecording(){
-	toggleRecording.textContent = 'Start recording';
-	toggleRecording.onclick = startRecording;
-	ws.send("dihanan")
 }

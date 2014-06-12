@@ -12,18 +12,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.Session;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
-import java.util.stream.Collectors;
 
 @Singleton
 public class ReplayServlet extends HttpServlet {
 
 	@Inject
 	private EntityManager entityManager;
+	@Inject
+	private Gson gson;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,7 +35,7 @@ public class ReplayServlet extends HttpServlet {
 		for(Record record : records){
 			jsonRecords.add(record.getJson());
 		}
-		req.setAttribute("records", new Gson().toJson(jsonRecords));
+		req.setAttribute("records", gson.toJson(jsonRecords));
 		getServletContext().getRequestDispatcher("/replay.jsp").forward(req, resp);
 	}
 

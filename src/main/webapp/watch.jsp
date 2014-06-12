@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +5,7 @@
 	<meta charset="utf-8" />
 	<link rel="stylesheet" href="monitor.css"/>
 	<script src="js/monitoring.js"></script>
+	<script src="js/watch.js"></script>
 	<script>watcherInit('${session.id}', {path: '/socket/watch'})</script>
 </head>
 <body>
