@@ -45,16 +45,16 @@ public class UserEndpoint extends Endpoint {
 			@Override
 			public void onMessage(String message) {
 				if(message.startsWith(Message.KOUN.getMessage())){
-					String cookie = message.substring(Message.KOUN.getMessage().length());
+					String cookie = message.substring(Message.KOUN.getMessage().length() + 1);
 					if(cookie.equals("false")){
 						cookie = UUID.randomUUID().toString();
-						session.getUserProperties().put("cookie", cookie);
 						try {
-							session.getBasicRemote().sendText(cookie);
+							session.getBasicRemote().sendText(Message.KOUN.getMessage() + " " + cookie);
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
 					}
+					session.getUserProperties().put("cookie", cookie);
 					users.put(cookie, session);
 				}
 				else if(forwards.containsUser(session)){
