@@ -8,6 +8,7 @@ import bzh.dezrann.config.Config;
 import bzh.dezrann.recording.InMemoryRecording;
 import bzh.dezrann.recording.InMemoryRecordings;
 import bzh.dezrann.recording.databean.Record;
+import com.google.gson.Gson;
 import com.google.inject.internal.util.$SourceProvider;
 
 import javax.persistence.EntityManager;
@@ -26,6 +27,7 @@ import java.util.UUID;
 
 public class UserEndpoint extends Endpoint {
 
+	private Gson gson;
 	private Sessions sessions;
 	private Forwards forwards;
 	private InMemoryRecordings recordings;
@@ -36,6 +38,7 @@ public class UserEndpoint extends Endpoint {
 		this.forwards = Config.injector.getInstance(Forwards.class);
 		this.recordings = Config.injector.getInstance(InMemoryRecordings.class);
 		this.users = Config.injector.getInstance(Users.class);
+		this.gson = Config.injector.getInstance(Gson.class);
 	}
 
 	@Override
@@ -44,9 +47,9 @@ public class UserEndpoint extends Endpoint {
 		session.addMessageHandler(new Whole<String>() {
 			@Override
 			public void onMessage(String message) {
-				if(message.startsWith(Message.KOUN.getMessage())){
-					String cookie = message.substring(Message.KOUN.getMessage().length() + 1);
-					if(cookie.equals("false")){
+				if(message.startsWith(Message.KOUN.getMessage())) {
+					String cookie = message.substring(Message.KOUN.getMessage().length());
+					if (cookie.equals("false")) {
 						cookie = UUID.randomUUID().toString();
 						try {
 							session.getBasicRemote().sendText(Message.KOUN.getMessage() + " " + cookie);
@@ -56,8 +59,10 @@ public class UserEndpoint extends Endpoint {
 					}
 					session.getUserProperties().put("cookie", cookie);
 					users.put(cookie, session);
-				}
-				else if(forwards.containsUser(session)){
+				} else if(message.startsWith(Message.TITOUROU.getMessage())) {
+					UserInfos userInfos = gson.fromJson(message.substring(Message.TITOUROU.getMessage().length()), UserInfos.class);
+					session.getUserProperties().put("userInfos", userInfos);
+				} else if(forwards.containsUser(session)){
 					Set<Session> watchers = forwards.getWatchers(session);
 					for(Session watcher : watchers){
 						try {
