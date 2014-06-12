@@ -1,3 +1,5 @@
+<jsp:useBean id="recordingId" scope="request" type="java.lang.String"/>
+<jsp:useBean id="recordsGson" scope="request" type="java.lang.String"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -10,6 +12,7 @@
 </head>
 <body>
 <h1>You are replaying recording ${recordingId}</h1>
+<p style="display:none;" id ="abc">${recordsGson}</p>
 <div id="cursor"></div>
 <div id="frame">
 	<iframe id="iframe"></iframe>
