@@ -12,9 +12,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.Session;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Singleton
 public class ReplayServlet extends HttpServlet {
@@ -28,10 +29,11 @@ public class ReplayServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String recordingId = req.getParameter("id");
 		req.setAttribute("recordingId", recordingId);
-		Query query = entityManager.createQuery("from Record");
+		Query query = entityManager.createQuery("from Record where recordingId = :recordingId order by timestamp", Record.class);
+		query.setParameter("recordingId", Integer.parseInt(recordingId));
 		List<Record> records = query.getResultList();
-		String recordsGson = gson.toJson(records);
-		req.setAttribute("records", recordsGson);
+		List<String> jsonRecords = records.stream().map(Record::getJson).collect(Collectors.toList());
+		req.setAttribute("records", gson.toJson(jsonRecords));
 		getServletContext().getRequestDispatcher("/replay.jsp").forward(req, resp);
 	}
 

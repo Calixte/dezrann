@@ -2,7 +2,6 @@ package bzh.dezrann.config;
 
 import bzh.dezrann.servlet.ReplayServlet;
 import bzh.dezrann.servlet.WatchServlet;
-import bzh.dezrann.websocket.ReplayEndpoint;
 import bzh.dezrann.websocket.UserEndpoint;
 import bzh.dezrann.servlet.MainServlet;
 import bzh.dezrann.websocket.WatchEndpoint;
@@ -42,7 +41,6 @@ public class Config extends GuiceServletContextListener implements ServerApplica
 		if (scanned.contains(UserEndpoint.class)) {
 			result.add(ServerEndpointConfig.Builder.create(UserEndpoint.class, "/socket/listen").build());
 			result.add(ServerEndpointConfig.Builder.create(WatchEndpoint.class, "/socket/watch").build());
-			result.add(ServerEndpointConfig.Builder.create(ReplayEndpoint.class, "/socket/replay").build());
 		}
 
 		return result;
