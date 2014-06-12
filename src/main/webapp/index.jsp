@@ -6,6 +6,7 @@
 <head>
 	<title>Dezrann - User behaviour analysis</title>
 	<meta charset="utf-8" />
+	<script src="js/index.js"></script>
 </head>
 <body>
 	<h1>Dezrann - User behaviour analysis</h1>
@@ -38,7 +39,10 @@
 		<c:forEach items="${recordings}" var="recording">
 			<tr>
 				<td>${recording.id}</td>
-				<td><a href="<c:url value="/replay?id=${recording.id}" />">Replay</a></td>
+				<td>
+					<a href="<c:url value="/replay?id=${recording.id}" />">Replay</a>
+					<a href="#" data-id="${recording.id}" class="delete-link">Delete</a>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>

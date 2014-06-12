@@ -33,7 +33,10 @@ public class Forwards {
 	}
 
 	public Set<Session> getWatchers(Session userSession) {
-		return userToWatchers.get(userSession);
+		if(userToWatchers.containsKey(userSession)){
+			return userToWatchers.get(userSession);
+		}
+		return new HashSet<>();
 	}
 
 	public Session stopWatching(Session session) {
