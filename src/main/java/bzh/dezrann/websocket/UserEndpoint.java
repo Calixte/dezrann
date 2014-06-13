@@ -44,7 +44,7 @@ public class UserEndpoint extends Endpoint {
 	@Override
 	public void onOpen(final Session session, EndpointConfig endpointConfig) {
 		System.out.println("User connection opened (session № " + session.getId() + "\t" + session + ")");
-		session.setMaxTextMessageBufferSize(100000);
+		session.setMaxTextMessageBufferSize(500000);
 		session.addMessageHandler(new Whole<String>() {
 			@Override
 			public void onMessage(String message) {
