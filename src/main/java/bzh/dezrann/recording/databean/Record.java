@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 public class Record implements Serializable {
@@ -13,6 +14,8 @@ public class Record implements Serializable {
 	private Long timestamp;
 	@Id
 	private Long nano;
+	@Id
+	private String uuid;
 	@Column(columnDefinition="LONGTEXT")
 	private String json;
 
@@ -20,6 +23,7 @@ public class Record implements Serializable {
 		this.timestamp = System.currentTimeMillis();
 		this.nano = System.nanoTime();
 		this.json = json;
+		this.uuid = UUID.randomUUID().toString();
 	}
 
 	public Record() {
@@ -56,5 +60,13 @@ public class Record implements Serializable {
 
 	public void setRecordingId(Integer recordingId) {
 		this.recordingId = recordingId;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 }
