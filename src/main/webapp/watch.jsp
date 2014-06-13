@@ -10,7 +10,10 @@
 </head>
 <body>
 	<h1>You are monitoring session ${session.id}</h1>
-	<button onclick="location='${pageContext.request.contextPath}'">&#8962;</button>
+	<p>
+		<span id="disconnected" style="display: none">User disconnected! Wait for him to visit a new page</span>
+	</p>
+	<button onclick="location='/'">&#8962;</button>
 	<button id="toggleRecording">Start recording</button>
 	<div id="cursor"></div>
 	<div id="frame">

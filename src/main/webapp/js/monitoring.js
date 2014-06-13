@@ -32,8 +32,11 @@ function watcherInit(id, c) {
 	};
 	ws.onmessage = function (messageEvent) {
 		if (messageEvent.data == 'kenavo') {
-//			alert('Client disconnected\nYou will be redirected');
-//			location = '/?reason=' + encodeURIComponent('client disconnected');
+			document.getElementById('disconnected').style.display = 'inline';
+			return;
+		}
+		if (messageEvent.data == 'gwar') {
+			location = '/watch?id='+messageEvent.data.substr(4);
 			return;
 		}
 		var msg = JSON.parse(messageEvent.data);
