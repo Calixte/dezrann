@@ -101,5 +101,10 @@ function renderAction(msg) {
 			}
 			console.log(element[msg.attrName]);
 			break;
+		case 'domChange':
+			var elements = iframe.contentWindow.document.querySelectorAll(msg.tagName);
+			var element = elements[msg.index];
+			element.innerHTML = msg.innerHTML;
+			break;
 	}
 }
