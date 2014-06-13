@@ -90,7 +90,21 @@ public class UserEndpoint extends Endpoint {
 			try {
 				forwards.stopWatching(session);
 				watcher.getBasicRemote().sendText(Message.KENAVO.getMessage());
+				String userUuid = session.getUserProperties().get("cookie").toString();
+				users.remove(userUuid);
+				int timeout = 60;
+				while(timeout > 0){
+					if(users.containsKey(userUuid)){
+						Session newUserSession = users.get(userUuid);
+						watcher.getBasicRemote().sendText(Message.GWAR.getMessage() + newUserSession.getId());
+						break;
+					}
+					Thread.sleep(100);
+					timeout--;
+				}
 			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}

@@ -6,7 +6,8 @@ public enum Message {
 	DIHANAN("dihanan"),
 	ENROLLAN("enrollan"),
 	KOUN("koun"),
-	TITOUROU("titourou");
+	TITOUROU("titourou"),
+	GWAR("gwar");
 
 	private String message;
 
