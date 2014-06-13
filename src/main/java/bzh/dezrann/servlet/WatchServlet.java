@@ -27,7 +27,7 @@ public class WatchServlet extends HttpServlet {
 			getServletContext().getRequestDispatcher("/watch.jsp").forward(req, resp);
 		} else {
 			req.getSession().setAttribute("error", "session not live");
-			resp.sendRedirect("/");
+			resp.sendRedirect(getServletContext().getContextPath());
 		}
 	}
 }

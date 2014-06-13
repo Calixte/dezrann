@@ -42,7 +42,7 @@ public class Config extends GuiceServletContextListener implements ServerApplica
 			result.add(ServerEndpointConfig.Builder.create(UserEndpoint.class, "/socket/listen").build());
 			result.add(ServerEndpointConfig.Builder.create(WatchEndpoint.class, "/socket/watch").build());
 		}
-
+		System.out.println("WebSocket endpoints initiated");
 		return result;
 	}
 

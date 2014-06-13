@@ -44,6 +44,7 @@ public class UserEndpoint extends Endpoint {
 	@Override
 	public void onOpen(final Session session, EndpointConfig endpointConfig) {
 		System.out.println("User connection opened (session № " + session.getId() + "\t" + session + ")");
+		session.setMaxTextMessageBufferSize(100000);
 		session.addMessageHandler(new Whole<String>() {
 			@Override
 			public void onMessage(String message) {
@@ -93,8 +94,9 @@ public class UserEndpoint extends Endpoint {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("User connection closed (session № " + session.getId() + " " + session + ")");
-	}
+		System.out.println("User connection closed (session № " + session.getId() + ")");
+        System.out.println("Reason: " + closeReason);
+    }
 
 	@Override
 	public void onError(Session session, Throwable thr) {
