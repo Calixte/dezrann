@@ -35,7 +35,7 @@ function watcherInit(id, c) {
 			document.getElementById('disconnected').style.display = 'inline';
 			return;
 		}
-		if (messageEvent.data == 'gwar') {
+		if (messageEvent.dataindexOf('gwar') == 0) {
 			location = '/watch?id='+messageEvent.data.substr(4);
 			return;
 		}
