@@ -26,7 +26,7 @@
 			<th>Actions</th>
 		</tr>
 		<c:forEach items="${sessions}" var="session">
-			<tr>11
+			<tr>
 				<td>${session.key}</td>
 				<td>${session.value.userProperties.cookie}</td>
 				<td>${session.value.userProperties.userInfos.city}</td>

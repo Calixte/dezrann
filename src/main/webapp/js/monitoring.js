@@ -81,5 +81,25 @@ function renderAction(msg) {
 		case 'blur':
 			iframe.contentWindow.focused.style.boxShadow = '';
 			break;
+		case 'attrChange':
+//			console.log(msg);
+			var elements = iframe.contentWindow.document.querySelectorAll(msg.tagName);
+			var element = elements[msg.index];
+//			console.log(msg.attrValue);
+			console.log(msg.attrValue);
+			var obj = JSON.parse(msg.attrValue);
+			console.log(obj);
+			console.log(msg.attrName);
+			if (msg.attrName == 'style') {
+				console.log("moi style");
+				console.log(obj.cssText);
+				console.log(element);
+				element.style = obj.cssText;
+				cons
+			} else {
+				element[msg.attrName] = msg.attrValue;
+			}
+			console.log(element[msg.attrName]);
+			break;
 	}
 }
