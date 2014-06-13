@@ -99,7 +99,7 @@ public class UserEndpoint extends Endpoint {
 						watcher.getBasicRemote().sendText(Message.GWAR.getMessage() + newUserSession.getId());
 						break;
 					}
-					Thread.sleep(100);
+					Thread.sleep(1000);
 					timeout--;
 				}
 			} catch (IOException e) {
