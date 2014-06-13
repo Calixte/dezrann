@@ -81,6 +81,13 @@ function renderAction(msg) {
 		case 'blur':
 			iframe.contentWindow.focused.style.boxShadow = '';
 			break;
+		case 'focusSelect':
+			var res = iframe.contentWindow.document.querySelectorAll('select');
+			iframe.contentWindow.selectFocused = res[msg.i];
+			var mEvent = document.createEvent('MouseEvents');
+			mEvent.initMouseEvent('mousedown', true, true, iframe.contentWindow);
+			res[msg.i].dispatchEvent(mEvent);
+			break;
 		case 'attrChange':
 //			console.log(msg);
 			var elements = iframe.contentWindow.document.querySelectorAll(msg.tagName);
@@ -105,6 +112,14 @@ function renderAction(msg) {
 			var elements = iframe.contentWindow.document.querySelectorAll(msg.tagName);
 			var element = elements[msg.index];
 			element.innerHTML = msg.innerHTML;
+			break;
+		case 'valueSelect':
+			var res = iframe.contentWindow.document.querySelectorAll('select');
+			res[msg.i].value = msg.value;
+			break;
+		default :
+			console.log('default');
+			console.log(msg);
 			break;
 	}
 }
