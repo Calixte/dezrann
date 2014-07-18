@@ -1,51 +1,33 @@
 package bzh.dezrann.recording.databean;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.io.Serializable;
-import java.util.UUID;
 
 @Entity
 public class Record implements Serializable {
+	
 	@Id
-	private Integer recordingId;
-	@Id
-	private Long timestamp;
-	@Id
-	private Long nano;
-	@Id
-	private String uuid;
+	private RecordKey recordKey;
+
 	@Column(columnDefinition="LONGTEXT")
 	private String json;
 
 	public Record(String json){
-		this.timestamp = System.currentTimeMillis();
-		this.nano = System.nanoTime();
+		recordKey = new RecordKey();
 		this.json = json;
-		this.uuid = UUID.randomUUID().toString();
 	}
 
 	public Record() {
 		this("");
 	}
 
-	public Long getTimestamp() {
-		return timestamp;
+	public RecordKey getRecordKey(){
+		return recordKey;
 	}
-
-	public void setTimestamp(Long timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	public Long getNano() {
-		return nano;
-	}
-
-	public void setNano(Long nano) {
-		this.nano = nano;
-	}
-
+	
 	public String getJson() {
 		return json;
 	}
@@ -54,19 +36,4 @@ public class Record implements Serializable {
 		this.json = json;
 	}
 
-	public Integer getRecordingId() {
-		return recordingId;
-	}
-
-	public void setRecordingId(Integer recordingId) {
-		this.recordingId = recordingId;
-	}
-
-	public String getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
 }

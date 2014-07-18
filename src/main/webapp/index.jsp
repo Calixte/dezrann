@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:useBean id="sessions" scope="request" type="java.util.Map<java.lang.String, javax.websocket.Session>"/>
+<%-- <jsp:useBean id="sessions" scope="request" type="java.util.Map<java.lang.String, javax.websocket.Session>"/> --%>
 <jsp:useBean id="recordings" scope="request" type="java.util.List<bzh.dezrann.recording.databean.Recording>"/>
 <!DOCTYPE html>
 <html>

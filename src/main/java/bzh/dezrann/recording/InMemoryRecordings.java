@@ -30,7 +30,7 @@ public class InMemoryRecordings extends HashMap<InMemoryRecording, Collection<Re
 		try{
 			entityManager.getTransaction().begin();
 			for(Record record : records){
-				record.setRecordingId(recording.getId());
+				record.getRecordKey().setRecordingId(recording.getId());
 				entityManager.persist(record);
 			}
 			entityManager.getTransaction().commit();

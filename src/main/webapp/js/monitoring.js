@@ -36,7 +36,7 @@ function watcherInit(id, c) {
 			return;
 		}
 		if (messageEvent.data.indexOf('gwar') == 0) {
-			location = '/watch?id='+messageEvent.data.substr(4);
+			location = '/dezrann/watch?id='+messageEvent.data.substr(4);
 			return;
 		}
 		var msg = JSON.parse(messageEvent.data);

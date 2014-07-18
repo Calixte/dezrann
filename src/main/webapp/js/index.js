@@ -5,10 +5,10 @@ document.addEventListener('DOMContentLoaded', function(){
 			event.preventDefault();
 			var recordingId = link.dataset.id;
 			var request = new XMLHttpRequest();
-			request.open('DELETE', '/replay?id=' + recordingId, true);
+			request.open('DELETE', '/dezrann/replay?id=' + recordingId, true);
 			request.onload = function() {
 				if (this.status >= 200 && this.status < 400){
-					window.location = "/"
+					window.location = "/dezrann";
 				}
 			};
 			request.send();
